@@ -1,4 +1,5 @@
 import { Building } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface PropertyGridProps {
   title: string;
@@ -10,6 +11,27 @@ interface PropertyGridProps {
 }
 
 const PropertyGrid = ({ title, category, properties }: PropertyGridProps) => {
+  const navigate = useNavigate();
+  
+  const categoryRoutes: Record<string, string> = {
+    "office-buildings": "/office-buildings",
+    coworking: "/coworking",
+    "creative-parks": "/creative-parks",
+    standalone: "/standalone",
+    offices: "/offices",
+  };
+
+  const handleCardClick = () => {
+    const route = categoryRoutes[category];
+    if (route) {
+      navigate(route);
+    }
+  };
+
+  const handleMoreClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    handleCardClick();
+  };
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -23,6 +45,7 @@ const PropertyGrid = ({ title, category, properties }: PropertyGridProps) => {
             <div
               key={index}
               className="group cursor-pointer"
+              onClick={handleCardClick}
             >
               <div className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300">
                 <div className="aspect-[4/3] bg-gradient-to-br from-primary/10 to-accent/10 relative overflow-hidden">
@@ -45,12 +68,12 @@ const PropertyGrid = ({ title, category, properties }: PropertyGridProps) => {
         </div>
 
         <div className="text-center mt-12">
-          <a
-            href={`/${category}`}
+          <button
+            onClick={handleMoreClick}
             className="inline-block px-8 py-3 text-primary border-2 border-primary rounded-lg hover:bg-primary hover:text-primary-foreground transition-all"
           >
             更多{title}
-          </a>
+          </button>
         </div>
       </div>
     </section>

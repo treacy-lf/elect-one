@@ -1,16 +1,23 @@
 import { Building2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const DistrictGrid = () => {
+  const navigate = useNavigate();
+  
   const districts = [
-    { name: "虹桥商务区", count: "120+" },
-    { name: "徐泾/西虹桥", count: "80+" },
-    { name: "虹桥临空经济区", count: "95+" },
-    { name: "虹桥古北开发区", count: "65+" },
-    { name: "人民广场", count: "150+" },
-    { name: "长风商务区", count: "70+" },
-    { name: "莘庄商务区", count: "55+" },
-    { name: "陆家嘴", count: "200+" },
+    { name: "虹桥商务区", count: "120+", route: "/offices" },
+    { name: "徐泾/西虹桥", count: "80+", route: "/offices" },
+    { name: "虹桥临空经济区", count: "95+", route: "/offices" },
+    { name: "虹桥古北开发区", count: "65+", route: "/offices" },
+    { name: "人民广场", count: "150+", route: "/offices" },
+    { name: "长风商务区", count: "70+", route: "/offices" },
+    { name: "莘庄商务区", count: "55+", route: "/offices" },
+    { name: "陆家嘴", count: "200+", route: "/offices" },
   ];
+
+  const handleDistrictClick = (route: string) => {
+    navigate(route);
+  };
 
   return (
     <section className="py-16 bg-muted/30">
@@ -24,6 +31,7 @@ const DistrictGrid = () => {
           {districts.map((district) => (
             <div
               key={district.name}
+              onClick={() => handleDistrictClick(district.route)}
               className="group relative overflow-hidden rounded-xl bg-card shadow-card hover:shadow-card-hover transition-all duration-300 cursor-pointer"
             >
               <div className="aspect-[4/5] bg-gradient-to-br from-primary/20 to-accent/20 relative">
